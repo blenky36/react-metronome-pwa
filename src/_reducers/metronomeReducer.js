@@ -1,6 +1,6 @@
 import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT } from '../_constants/actionTypes';
 
-const initialState = { playing: false,  intervalID: null, timeSignature: [4, 4], currentBeat: 1};
+const initialState = { playing: false,  intervalID: null, timeSignature: [4, 4], currentBeat: 1, tickSpeed: 1000};
 
 export const metronomeReducer = (state = initialState, action) => {
     const { type, payload } = action;

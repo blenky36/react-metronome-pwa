@@ -22,6 +22,6 @@ const BeatIndicator = ({ beatNo, currentBeat }) => {
 export default BeatIndicator;
 
 BeatIndicator.propTypes = {
-    key: PropTypes.number.isRequired,
-    beat: PropTypes.number.isRequired
+    beatNo: PropTypes.number.isRequired,
+    currentBeat: PropTypes.number.isRequired
 }

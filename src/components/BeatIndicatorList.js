@@ -10,9 +10,9 @@ const BeatIndicatorListContainer = styled.div`
     flex-wrap: nowrap;    
 `;
 
-export const createIndicatorList = (beatsPerBar, currentBeat) => {
+const createIndicatorList = (beatsPerBar, currentBeat) => {
     let indicatorList = [];
-    for (let i = 1; i = beatsPerBar; i++) {
+    for (let i = 1; i <= beatsPerBar; i++) {
         indicatorList.push(<BeatIndicator beatNo={i} currentBeat={currentBeat} />)
     };
     return indicatorList;
@@ -20,9 +20,7 @@ export const createIndicatorList = (beatsPerBar, currentBeat) => {
 
 const BeatIndicatorList = ({ beatsPerBar, currentBeat }) => {
 
-    useEffect(() => renderIndicators(), []); // componentDidMount
-
-    useEffect(() => renderIndicators(), [beatsPerBar, currentBeat]); // componentDidMount
+    // useEffect(() => createIndicatorList(beatsPerBar, currentBeat), [beatsPerBar, currentBeat]); // componentDidMount
 
     return (
         <BeatIndicatorListContainer>
@@ -31,7 +29,7 @@ const BeatIndicatorList = ({ beatsPerBar, currentBeat }) => {
     )
 }
 
-BeatIndicators.propTypes = {
+BeatIndicatorList.propTypes = {
     beatsPerBar: PropTypes.number.isRequired,
     currentBeat: PropTypes.number.isRequired
 };

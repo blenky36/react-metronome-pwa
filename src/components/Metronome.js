@@ -1,58 +1,59 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import BeatIndicatorList from './BeatIndicatorList';
-import wood from '../audio/wood.wav';
+import wood from '../assets/audio/wood.wav'
+import { connect } from 'react-redux';
+import { getCurrentBeat, getFormattedTimeSignature, getMetronomePlaying, getMetronomeTickSpeed } from '../_selectors/metronomeSelectors';
 
-const Metronome = () => {
-    const [playing, setPlaying] = useState(false);
+export const renderButton = (playing, stopMetronome, startMetronome) => playing ? <button className="btn btn-danger" onClick={() => stopMetronome}>Stop</button> : <button disabled={playing} className="btn btn-success" onClick={() => startMetronome}>Play</button>
+export const getBeatsPerMinute = (tickSpeed) => 60 / (tickSpeed / 1000);
+// export const playSound = (t) => {
+//     let clone = t.cloneNode();
+//     clone.play();
+// }
+
+const Metronome = ({ timeSignature, currentBeat, playing, tickSpeed }) => {
     const [intervalID, setIntervalID] = useState(0);
-    const [tickSpeed, setTickSpeed] = useState(500);
-    const [currentBeat, setCurrentBeat] = useState(0);
-    const [timeSignature, setTimeSignature] = useState([4, 4]);
 
-    const startMetronome = () => {
-        let t = new Audio(wood);
-        setPlaying(true);
-        setCurrentBeat(1);
-        playSound(t);
-        setIntervalID(setInterval(() => {
-            playSound(t);
-            getCurrentBeat();
-        }, tickSpeed));
-    }
+    // const startMetronome = () => {
+    //     let t = new Audio(wood);
+    //     playSound(t);
+    //     setInterval(() => {
+    //         playSound(t);
+    //     }, tickSpeed);
+    // }
 
     const stopMetronome = () => {
-        clearInterval(intervalID);
-        setPlaying(false);
+        console.log('stop');
     }
 
-    const getCurrentBeat = () => {
-        if (currentBeat === 4) {
-            setCurrentBeat(1);
-        } else {
-            setCurrentBeat(currentBeat => currentBeat + 1)
-        }
+    const startMetronome = () => {
+        console.log('start');
     }
-
-    const getBeatsPerMinute = () => 60 / (tickSpeed / 1000)
-
-    const playSound = (t) => {
-        let clone = t.cloneNode();
-        clone.play();
-    }
-
-    const renderButton = () => playing ? <button className="btn btn-danger" onClick={() => stopMetronome()}>Stop</button> : <button disabled={playing} className="btn btn-success" onClick={() => startMetronome()}>Play</button>
 
     return (
         <Fragment>
-            <BeatIndicators amount={timeSignature[0]} beat={currentBeat} />
-                Beat: {currentBeat}
+            <BeatIndicatorList />
+                Beat: {currentBeat} 
             <br />
-                Time Signature: {timeSignature[0]}/{timeSignature[1]}
+                Time Signature: {timeSignature}
             <br />
-            {getBeatsPerMinute()} BPM
-            {renderButton()}
+            {getBeatsPerMinute(tickSpeed)} BPM
+            {renderButton(playing, startMetronome(), stopMetronome())}
         </Fragment>
     )
 }
 
-export default Metronome
+const mapStateToProps = state => ({
+    currentBeat: getCurrentBeat(state),
+    timeSignature: getFormattedTimeSignature(state),
+    playing: getMetronomePlaying(state),
+    tickSpeed: getMetronomeTickSpeed(state)
+});
+
+// const mapDispatchToProps = dispatch => ({
+//     startLoadingTodos: () => dispatch(loadTodos()),
+//     onRemovePressed: id => dispatch(removeTodoRequest(id)),
+//     onCompletedPressed: id => dispatch(markTodoAsCompletedRequest(id)),
+// });
+
+export default connect(mapStateToProps)(Metronome);
