@@ -1,0 +1,27 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
+
+const BeatIndicatorContainer = styled.div`
+    margin: 10px;
+    textAlign: center;    
+`;
+
+export const getBeatIndicatorColor = (beatNo, currentBeat) => (beatNo === currentBeat) ? 'red' : 'green';
+
+const BeatIndicator = ({ beatNo, currentBeat }) => {
+    return (
+        <BeatIndicatorContainer>
+            <FontAwesomeIcon icon={faCircle} color={getBeatIndicatorColor(beatNo, currentBeat)} />
+        </BeatIndicatorContainer>
+    )
+}
+
+export default BeatIndicator;
+
+BeatIndicator.propTypes = {
+    key: PropTypes.number.isRequired,
+    beat: PropTypes.number.isRequired
+}

@@ -1,0 +1,5 @@
+export const START_METRONOME = 'START_METRONOME';
+export const STOP_METRONOME = 'STOP_METRONOME';
+
+export const SET_CURRENT_BEAT = 'SET_CURRENT_BEAT';
+
