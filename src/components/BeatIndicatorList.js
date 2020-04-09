@@ -10,17 +10,15 @@ const BeatIndicatorListContainer = styled.div`
     flex-wrap: nowrap;    
 `;
 
-const createIndicatorList = (beatsPerBar, currentBeat) => {
+export const createIndicatorList = (beatsPerBar, currentBeat) => {
     let indicatorList = [];
     for (let i = 1; i <= beatsPerBar; i++) {
-        indicatorList.push(<BeatIndicator beatNo={i} currentBeat={currentBeat} />)
+        indicatorList.push(<BeatIndicator key={i} beatNo={i} currentBeat={currentBeat} />)
     };
     return indicatorList;
 }
 
 const BeatIndicatorList = ({ beatsPerBar, currentBeat }) => {
-
-    // useEffect(() => createIndicatorList(beatsPerBar, currentBeat), [beatsPerBar, currentBeat]); // componentDidMount
 
     return (
         <BeatIndicatorListContainer>
@@ -38,11 +36,5 @@ const mapStateToProps = state => ({
     currentBeat: getCurrentBeat(state),
     beatsPerBar: getBeatsPerBar(state),
 });
-
-// const mapDispatchToProps = dispatch => ({
-//     startLoadingTodos: () => dispatch(loadTodos()),
-//     onRemovePressed: id => dispatch(removeTodoRequest(id)),
-//     onCompletedPressed: id => dispatch(markTodoAsCompletedRequest(id)),
-// });
 
 export default connect(mapStateToProps)(BeatIndicatorList);
