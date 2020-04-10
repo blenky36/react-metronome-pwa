@@ -39,4 +39,16 @@ describe('The metronome reducer', () => {
 
     });
 
+    it('Sets the time signature correctly when passed SET_TIME_SIGNATURE', () => {
+        const fakeAction = getFakeAction('SET_TIME_SIGNATURE', [2, 8]);
+        const originalState = { timeSignature: [4, 5] };
+
+        const expected = { timeSignature: [2, 8] };
+
+        const actual = metronomeReducer(originalState, fakeAction);
+
+        expect(actual).toEqual(expected);
+
+    });
+
 });

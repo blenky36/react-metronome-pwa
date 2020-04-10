@@ -1,5 +1,5 @@
-import { setCurrentBeat, stopMetronome, startMetronome } from '../metronomeActions';
-import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT } from '../../_constants/actionTypes';
+import { setCurrentBeat, stopMetronome, startMetronome, setTimeSignature } from '../metronomeActions';
+import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT, SET_TIME_SIGNATURE } from '../../_constants/actionTypes';
 
 
 describe('The metronome actions', () => {
@@ -36,6 +36,19 @@ describe('The metronome actions', () => {
             };
 
             const actual = setCurrentBeat(2);
+
+            expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('The setTimeSignature action', () => {
+        it('Returns an object of type SET_TIME_SIGNATURE with payload of the correct time signature', () => {
+            const expected = {
+                type: SET_TIME_SIGNATURE,
+                payload: [6, 8]
+            };
+
+            const actual = setTimeSignature(6, 8);
 
             expect(actual).toEqual(expected);
         });

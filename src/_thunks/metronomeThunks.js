@@ -17,7 +17,7 @@ export const startMetronomePlaying = () => (dispatch, getState) => {
     clearInterval(intervalID);
 
     const interval = setInterval(() => {
-        playSound('drumstick');
+        playSound('wood');
         let currentBeat = getCurrentBeat(getState());
         let beatsPerBar = getBeatsPerBar(getState());
         dispatch(calculateNextBeat(currentBeat, beatsPerBar));

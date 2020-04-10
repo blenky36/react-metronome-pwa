@@ -3,3 +3,5 @@ export const STOP_METRONOME = 'STOP_METRONOME';
 
 export const SET_CURRENT_BEAT = 'SET_CURRENT_BEAT';
 
+export const SET_TIME_SIGNATURE = 'SET_TIME_SIGNATURE';
+
