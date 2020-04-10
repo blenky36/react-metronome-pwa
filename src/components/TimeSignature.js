@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { getFormattedTimeSignature } from '../_selectors/metronomeSelectors';
+import { getBeatsPerBar, getBeatType } from '../_selectors/metronomeSelectors';
+import { setTimeSignature } from '../_actions/metronomeActions';
 
-const TimeSignature = () => {
+const TimeSignature = ({ beatsPerBar, beatType, setNewTimeSignature }) => {
 
 }
 
 const mapStateToProps = state => ({
-    timeSignature: getFormattedTimeSignature(state),
+    beatsPerBar: getBeatsPerBar(state),
+    beatType: getBeatType(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-    
+    setNewTimeSignature: (beatsPerBar, beatType) => setTimeSignature(beatsPerBar, beatType)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimeSignature);
