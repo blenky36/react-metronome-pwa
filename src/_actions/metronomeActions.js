@@ -5,9 +5,8 @@ export const startMetronome = (intervalID) => ({
     payload: intervalID
 });
 
-export const stopMetronome = (intervalID) => ({
-    type: STOP_METRONOME,
-    payload: intervalID
+export const stopMetronome = () => ({
+    type: STOP_METRONOME
 });
 
 export const setCurrentBeat = (newBeat) => ({

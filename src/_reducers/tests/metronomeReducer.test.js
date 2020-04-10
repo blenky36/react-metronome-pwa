@@ -3,7 +3,7 @@ import { metronomeReducer } from '../metronomeReducer';
 const getFakeAction = (type, payload) => ({ type, payload }); 
 
 describe('The metronome reducer', () => {
-    it('Sets the current beat correctly when passed a new beat', () => {
+    it('Sets the current beat correctly when passed SET_CURRENT_BEAT', () => {
         const fakeAction = getFakeAction('SET_CURRENT_BEAT', 2);
         const originalState = { currentBeat: 1 };
 
@@ -13,6 +13,30 @@ describe('The metronome reducer', () => {
 
         expect(actual).toEqual(expected);
 
+    });
+
+    it('Sets playing to true and the intervalID correctly when passed START_METRONOME', () => {
+        const fakeAction = getFakeAction('START_METRONOME', 2);
+        const originalState = { playing: false, intervalID: null };
+
+        const expected = { playing: true, intervalID: 2 };
+
+        const actual = metronomeReducer(originalState, fakeAction);
+
+        expect(actual).toEqual(expected);
 
     });
+
+    it('Sets playing to false and the intervalID to null when passed STOP_METRONOME', () => {
+        const fakeAction = getFakeAction('STOP_METRONOME');
+        const originalState = { playing: true, intervalID: 10, currentBeat: 3 };
+
+        const expected = { playing: false, intervalID: null, currentBeat: 1 };
+
+        const actual = metronomeReducer(originalState, fakeAction);
+
+        expect(actual).toEqual(expected);
+
+    });
+
 });

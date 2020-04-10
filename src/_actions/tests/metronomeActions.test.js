@@ -17,10 +17,9 @@ describe('The metronome actions', () => {
     });
 
     describe('The stopMetronome action', () => {
-        it('Returns an object of type STOP_METRONOME with payload of the correct intervalID', () => {
+        it('Returns an object of type STOP_METRONOME', () => {
             const expected = {
                 type: STOP_METRONOME,
-                payload: 1
             };
 
             const actual = stopMetronome(1);
