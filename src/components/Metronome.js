@@ -4,9 +4,10 @@ import { startMetronomePlaying, stopMetronomePlaying } from '../_thunks/metronom
 import { connect } from 'react-redux';
 import TimeSignature from '../components/TimeSignature';
 import Tempo from '../components/Tempo';
+import ActionButton from '../ui-components/ActionButton';
 import { getMetronomePlaying, getMetronomeTempo, getBeatsPerBar, getMetronomeIntervalID } from '../_selectors/metronomeSelectors';
 
-export const renderButton = (playing, stopMetronome, startMetronome) => playing ? <button className="btn btn-danger" onClick={() => stopMetronome()}>Stop</button> : <button disabled={playing} onClick={() => startMetronome()} className="btn btn-success" >Start</button>
+export const renderButton = (playing, stopMetronome, startMetronome) => playing ? <ActionButton onClick={() => stopMetronome()}>Stop</ActionButton> : <ActionButton disabled={playing} onClick={() => startMetronome()} >Start</ActionButton>
 
 const Metronome = ({ playing, stopMetronome, startMetronome }) => {
     return (

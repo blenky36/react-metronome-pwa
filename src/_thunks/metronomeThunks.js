@@ -14,6 +14,7 @@ export const calculateNextBeat = (currentBeat, beatsPerBar) => dispatch => {
 export const startMetronomePlaying = () => (dispatch, getState) => {
     let tempo = getMetronomeTempo(getState());
     let tickSpeed = convertTempoToMilliseconds(tempo);
+    console.log(tickSpeed);
     let intervalID = getMetronomeIntervalID(getState());
     clearInterval(intervalID);
 
@@ -39,4 +40,4 @@ const playSound = (name) => {
     sound.play();
 }  
 
-const convertTempoToMilliseconds = (tempo) => (tempo / 60) * 1000;
+export const convertTempoToMilliseconds = (tempo) => (60 / tempo) * 1000;

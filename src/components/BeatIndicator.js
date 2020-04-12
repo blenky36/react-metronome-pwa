@@ -9,7 +9,7 @@ const BeatIndicatorContainer = styled.div`
     textAlign: center;    
 `;
 
-export const getBeatIndicatorColor = (beatNo, currentBeat) => (beatNo === currentBeat) ? 'red' : 'green';
+export const getBeatIndicatorColor = (beatNo, currentBeat) => (beatNo === currentBeat) ? '#5AD7FA' : 'white';
 
 const BeatIndicator = ({ beatNo, currentBeat }) => {
     return (

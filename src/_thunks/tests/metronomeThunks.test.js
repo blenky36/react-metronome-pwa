@@ -1,4 +1,4 @@
-import { calculateNextBeat } from '../metronomeThunks';
+import { calculateNextBeat, convertTempoToMilliseconds } from '../metronomeThunks';
 import sinon from 'sinon';
 
 describe('The metronome thunks', () => {
@@ -31,4 +31,20 @@ describe('The metronome thunks', () => {
             expect(fakeDispatch.getCall(0).args[0]).toEqual(expectedFirstAction);
         });
     });
+});
+
+describe('ConvertTempoToMilliseconds', () => {
+    it('returns 1000 when passed a tempo of 60', () => {
+        const expected = 1000;
+        const actual = convertTempoToMilliseconds(60);
+
+        expect(actual).toEqual(expected);
+    });
+    
+    it('returns 500 when passed a tempo of 120', () => {
+        const expected = 500;
+        const actual = convertTempoToMilliseconds(120);
+        
+        expect(actual).toEqual(expected);
+    })
 });
