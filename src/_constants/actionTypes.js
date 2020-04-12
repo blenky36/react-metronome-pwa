@@ -5,3 +5,5 @@ export const SET_CURRENT_BEAT = 'SET_CURRENT_BEAT';
 
 export const SET_TIME_SIGNATURE = 'SET_TIME_SIGNATURE';
 
+export const SET_TEMPO = 'SET_TEMPO';
+

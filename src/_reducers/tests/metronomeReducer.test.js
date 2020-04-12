@@ -51,4 +51,16 @@ describe('The metronome reducer', () => {
 
     });
 
+    it('Sets the tempo correctly when passed SET_TEMPO action', () => {
+        const fakeAction = getFakeAction('SET_TEMPO', 40);
+        const originalState = { tempo: 50 };
+
+        const expected = { tempo: 40 };
+
+        const actual = metronomeReducer(originalState, fakeAction);
+
+        expect(actual).toEqual(expected);
+
+    });
+
 });

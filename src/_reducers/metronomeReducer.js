@@ -1,6 +1,6 @@
-import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT, SET_TIME_SIGNATURE } from '../_constants/actionTypes';
+import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT, SET_TIME_SIGNATURE, SET_TEMPO } from '../_constants/actionTypes';
 
-const initialState = { playing: false, intervalID: null, timeSignature: [3, 4], currentBeat: 2, tickSpeed: 250 };
+const initialState = { playing: false, intervalID: null, timeSignature: [4, 4], currentBeat: 1, tempo: 120 };
 
 export const metronomeReducer = (state = initialState, action) => {
     const { type, payload } = action;
@@ -31,6 +31,12 @@ export const metronomeReducer = (state = initialState, action) => {
             return {
                 ...state,
                 timeSignature: ts
+            }
+        case SET_TEMPO:
+            const tempo = payload;
+            return {
+                ...state,
+                tempo
             }
         default:
             return state;

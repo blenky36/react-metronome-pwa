@@ -4,7 +4,7 @@ export const getMetronomePlaying = state => state.metronomeReducer.playing;
 export const getMetronomeIntervalID = state => state.metronomeReducer.intervalID;
 export const getTimeSignatureArray = state => state.metronomeReducer.timeSignature;
 export const getCurrentBeat = state => state.metronomeReducer.currentBeat;
-export const getMetronomeTickSpeed = state => state.metronomeReducer.tickSpeed;
+export const getMetronomeTempo = state => state.metronomeReducer.tempo;
 
 
 export const getBeatsPerBar = createSelector(

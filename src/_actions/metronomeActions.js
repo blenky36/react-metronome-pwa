@@ -1,4 +1,4 @@
-import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT, SET_TIME_SIGNATURE } from '../_constants/actionTypes';
+import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT, SET_TIME_SIGNATURE, SET_TEMPO } from '../_constants/actionTypes';
 
 export const startMetronome = (intervalID) => ({
     type: START_METRONOME,
@@ -18,3 +18,8 @@ export const setTimeSignature = (beatsPerBar, beatType) => ({
     type: SET_TIME_SIGNATURE,
     payload: [beatsPerBar, beatType]
 });
+
+export const setTempo = (tempo) => ({
+    type: SET_TEMPO,
+    payload: tempo
+})

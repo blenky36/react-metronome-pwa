@@ -1,7 +1,7 @@
 import  { soundCst } from '../_constants/sounds';
 import { setCurrentBeat, startMetronome, stopMetronome } from '../_actions/metronomeActions'
 import wood from '../assets/audio/wood.wav';
-import { getCurrentBeat, getBeatsPerBar, getMetronomeTickSpeed, getMetronomeIntervalID } from '../_selectors/metronomeSelectors';
+import { getCurrentBeat, getBeatsPerBar, getMetronomeTempo, getMetronomeIntervalID } from '../_selectors/metronomeSelectors';
 
 export const calculateNextBeat = (currentBeat, beatsPerBar) => dispatch => {
     if(currentBeat < beatsPerBar) {
@@ -12,7 +12,8 @@ export const calculateNextBeat = (currentBeat, beatsPerBar) => dispatch => {
 }
 
 export const startMetronomePlaying = () => (dispatch, getState) => {
-    let tickSpeed = getMetronomeTickSpeed(getState());
+    let tempo = getMetronomeTempo(getState());
+    let tickSpeed = convertTempoToMilliseconds(tempo);
     let intervalID = getMetronomeIntervalID(getState());
     clearInterval(intervalID);
 
@@ -36,4 +37,6 @@ export const stopMetronomePlaying = () => (dispatch, getState) => {
 const playSound = (name) => {
     let sound = new Audio(soundCst[name]);
     sound.play();
-}   
+}  
+
+const convertTempoToMilliseconds = (tempo) => (tempo / 60) * 1000;
