@@ -63,4 +63,16 @@ describe('The metronome reducer', () => {
 
     });
 
+    it('Sets the sound correctly when passed SET_SOUND action', () => {
+        const fakeAction = getFakeAction('SET_SOUND', 'drumstick');
+        const originalState = { sound: 'wood' };
+
+        const expected = { sound: 'drumstick' };
+
+        const actual = metronomeReducer(originalState, fakeAction);
+
+        expect(actual).toEqual(expected);
+
+    });
+
 });

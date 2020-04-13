@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import Metronome from './components/Metronome';
 import styled from 'styled-components'
 
@@ -17,15 +17,13 @@ const AppHeader = styled.header`
     color: white;
 `;
 
-function App() {
+const App = () => (
+    <AppContainer>
+        <AppHeader>
+            <Metronome />
+        </AppHeader>
+    </AppContainer>
+);
 
-    return (
-        <AppContainer>
-            <AppHeader>
-                <Metronome />
-            </AppHeader>
-        </AppContainer>
-    );
-}
 
 export default App;

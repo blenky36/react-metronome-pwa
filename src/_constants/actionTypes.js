@@ -7,3 +7,4 @@ export const SET_TIME_SIGNATURE = 'SET_TIME_SIGNATURE';
 
 export const SET_TEMPO = 'SET_TEMPO';
 
+export const SET_SOUND = 'SET_SOUND';

@@ -6,10 +6,11 @@ import {
     getTimeSignatureArray,
     getCurrentBeat,
     getMetronomeIntervalID,
-    getMetronomeTempo
+    getMetronomeTempo,
+    getMetromoneSound
 } from '../metronomeSelectors';
 
-const fakeState = { metronomeReducer: { playing: true,  intervalID: null, timeSignature: [3, 4], currentBeat: 2, tempo: 40} }
+const fakeState = { metronomeReducer: { playing: true,  intervalID: null, timeSignature: [3, 4], currentBeat: 2, tempo: 40, sound: 'wood'} }
 
 describe('The metronome selectors', () => {
     describe('The get beat type selector', () => {
@@ -106,6 +107,16 @@ describe('The metronome selectors', () => {
 
             const expected = 40;
             const actual = getMetronomeTempo(fakeState);
+
+            expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('The get metronome sound selector', () => {
+        it('Returns the sound', () => {
+
+            const expected = 'wood';
+            const actual = getMetromoneSound(fakeState);
 
             expect(actual).toEqual(expected);
         });

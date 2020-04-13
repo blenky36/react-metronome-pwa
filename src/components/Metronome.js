@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import TimeSignature from '../components/TimeSignature';
 import Tempo from '../components/Tempo';
 import ActionButton from '../ui-components/ActionButton';
+import SoundSelector from '../components/SoundSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle, faStopCircle } from '@fortawesome/free-solid-svg-icons'
 import { getMetronomePlaying, getMetronomeTempo, getBeatsPerBar, getMetronomeIntervalID } from '../_selectors/metronomeSelectors';
@@ -18,6 +19,8 @@ const Metronome = ({ playing, stopMetronome, startMetronome }) => {
             <TimeSignature />
             <Tempo />
             {renderButton(playing, stopMetronome, startMetronome)}
+            <br/>
+            <SoundSelector />
         </Fragment>
     )
 }

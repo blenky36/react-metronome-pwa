@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import BeatIndicator from './BeatIndicator';
-import styled from 'styled-components';
+import ItemListContainer from '../ui-components/ItemListContainer';
 import { connect } from 'react-redux';
 import { getCurrentBeat, getBeatsPerBar } from '../_selectors/metronomeSelectors';
 
-const BeatIndicatorListContainer = styled.div`
-    display: flex;
-    flex-wrap: nowrap;    
-`;
+
 
 export const createIndicatorList = (beatsPerBar, currentBeat) => {
     let indicatorList = [];
@@ -21,9 +18,9 @@ export const createIndicatorList = (beatsPerBar, currentBeat) => {
 const BeatIndicatorList = ({ beatsPerBar, currentBeat }) => {
 
     return (
-        <BeatIndicatorListContainer>
+        <ItemListContainer>
             {createIndicatorList(beatsPerBar, currentBeat)}
-        </BeatIndicatorListContainer>
+        </ItemListContainer>
     )
 }
 
