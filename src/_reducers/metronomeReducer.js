@@ -24,7 +24,7 @@ export const metronomeReducer = (state = initialState, action) => {
                 ...state,
                 intervalID: null,
                 playing: false,
-                currentBeat: 1
+                currentBeat: 0
             }
         case SET_TIME_SIGNATURE: 
             const ts = payload;

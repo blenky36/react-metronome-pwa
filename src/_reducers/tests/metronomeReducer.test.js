@@ -27,11 +27,11 @@ describe('The metronome reducer', () => {
 
     });
 
-    it('Sets playing to false and the intervalID to null when passed STOP_METRONOME', () => {
+    it('Sets playing to false and the intervalID to null and current beat to 0 when passed STOP_METRONOME', () => {
         const fakeAction = getFakeAction('STOP_METRONOME');
         const originalState = { playing: true, intervalID: 10, currentBeat: 3 };
 
-        const expected = { playing: false, intervalID: null, currentBeat: 1 };
+        const expected = { playing: false, intervalID: null, currentBeat: 0 };
 
         const actual = metronomeReducer(originalState, fakeAction);
 

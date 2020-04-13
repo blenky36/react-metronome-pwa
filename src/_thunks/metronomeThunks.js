@@ -1,7 +1,6 @@
 import  { soundCst } from '../_constants/sounds';
-import { setCurrentBeat, startMetronome, stopMetronome } from '../_actions/metronomeActions'
-import wood from '../assets/audio/wood.wav';
-import { getCurrentBeat, getBeatsPerBar, getMetronomeTempo, getMetronomeIntervalID } from '../_selectors/metronomeSelectors';
+import { setCurrentBeat, startMetronome, stopMetronome, setTempo } from '../_actions/metronomeActions'
+import { getCurrentBeat, getBeatsPerBar, getMetronomeTempo, getMetronomeIntervalID, getMetronomePlaying } from '../_selectors/metronomeSelectors';
 
 export const calculateNextBeat = (currentBeat, beatsPerBar) => dispatch => {
     if(currentBeat < beatsPerBar) {
@@ -14,7 +13,6 @@ export const calculateNextBeat = (currentBeat, beatsPerBar) => dispatch => {
 export const startMetronomePlaying = () => (dispatch, getState) => {
     let tempo = getMetronomeTempo(getState());
     let tickSpeed = convertTempoToMilliseconds(tempo);
-    console.log(tickSpeed);
     let intervalID = getMetronomeIntervalID(getState());
     clearInterval(intervalID);
 
@@ -25,7 +23,6 @@ export const startMetronomePlaying = () => (dispatch, getState) => {
         dispatch(calculateNextBeat(currentBeat, beatsPerBar));
     }, tickSpeed);
 
-    playSound('wood');
     dispatch(startMetronome(interval));
 }
 
@@ -35,9 +32,20 @@ export const stopMetronomePlaying = () => (dispatch, getState) => {
     dispatch(stopMetronome());
 }
 
+export const setNewTempo = (tempo) => (dispatch, getState) => {
+    const playing = getMetronomePlaying(getState());
+    if(playing) {
+        dispatch(stopMetronomePlaying());
+        dispatch(setTempo(tempo));
+        dispatch(startMetronomePlaying());
+    } else {
+        dispatch(setTempo(tempo));
+    }
+}  
+
 const playSound = (name) => {
     let sound = new Audio(soundCst[name]);
     sound.play();
-}  
+}   
 
 export const convertTempoToMilliseconds = (tempo) => (60 / tempo) * 1000;
