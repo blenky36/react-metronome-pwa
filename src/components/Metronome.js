@@ -8,13 +8,14 @@ import ActionButton from '../ui-components/ActionButton';
 import SoundSelector from '../components/SoundSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle, faStopCircle } from '@fortawesome/free-solid-svg-icons'
-import { getMetronomePlaying, getMetronomeTempo, getBeatsPerBar, getMetronomeIntervalID } from '../_selectors/metronomeSelectors';
+import { getMetronomePlaying, getMetronomeTempo, getBeatsPerBar, getMetronomeIntervalID, getCurrentBeat } from '../_selectors/metronomeSelectors';
 
 export const renderButton = (playing, stopMetronome, startMetronome) => playing ? <ActionButton onClick={() => stopMetronome()}><FontAwesomeIcon icon={faStopCircle} /></ActionButton> : <ActionButton disabled={playing} onClick={() => startMetronome()} ><FontAwesomeIcon icon={faPlayCircle} /></ActionButton>
 
-const Metronome = ({ playing, stopMetronome, startMetronome }) => {
+const Metronome = ({ playing, stopMetronome, startMetronome, currentBeat }) => {
     return (
         <Fragment>
+            Current Beat: {currentBeat}
             <BeatIndicatorList />
             <TimeSignature />
             <Tempo />
@@ -29,7 +30,8 @@ const mapStateToProps = state => ({
     playing: getMetronomePlaying(state),
     tempo: getMetronomeTempo(state),
     beatsPerBar: getBeatsPerBar(state),
-    intervalID: getMetronomeIntervalID(state)
+    intervalID: getMetronomeIntervalID(state),
+    currentBeat: getCurrentBeat(state)
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -20,21 +20,21 @@ export const addRemoveEmphasisedBeat = (beatNo) => (dispatch, getState) => {
 }
 
 export const startMetronomePlaying = () => (dispatch, getState) => {
-    let tempo = getMetronomeTempo(getState());
-    let tickSpeed = convertTempoToMilliseconds(tempo);
+    const tempo = getMetronomeTempo(getState());
+
     clearCurrentInterval(getState());
 
+    playSound(getState(), 1);
+    dispatch(setCurrentBeat(1));
     
-
     const interval = setInterval(() => {
-        let sound = getMetromoneSound(getState());
         let currentBeat = getCurrentBeat(getState());
         let beatsPerBar = getBeatsPerBar(getState());
-        console.log({ currentBeat });
-        playSound(sound);
         dispatch(calculateNextBeat(currentBeat, beatsPerBar));
-    }, tickSpeed);
 
+        let newBeat = getCurrentBeat(getState());
+        playSound(getState(), newBeat);
+    }, convertTempoToMilliseconds(tempo));
 
 
     dispatch(startMetronome(interval));
@@ -57,7 +57,7 @@ export const setNewTempo = (tempo) => (dispatch, getState) => {
     }
 }
 
-export const playSound = (name) => {
+export const playSoundFile = (name) => {
     let sound = new Audio(soundCst[name]);
     sound.play();
 }
@@ -65,6 +65,14 @@ export const playSound = (name) => {
 export const clearCurrentInterval = (state) => {
     let intervalID = getMetronomeIntervalID(state);
     clearInterval(intervalID);
+}
+
+export const playSound = (state, beat) => {
+    if(getEmphasisedBeats(state).includes(beat)) {
+        playSoundFile('woodHigh');
+    } else {
+        playSoundFile(getMetromoneSound(state))
+    }
 }
 
 export const convertTempoToMilliseconds = (tempo) => (60 / tempo) * 1000;
