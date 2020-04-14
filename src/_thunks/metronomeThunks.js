@@ -22,16 +22,20 @@ export const addRemoveEmphasisedBeat = (beatNo) => (dispatch, getState) => {
 export const startMetronomePlaying = () => (dispatch, getState) => {
     let tempo = getMetronomeTempo(getState());
     let tickSpeed = convertTempoToMilliseconds(tempo);
-    let intervalID = getMetronomeIntervalID(getState());
-    clearInterval(intervalID);
+    clearCurrentInterval(getState());
+
+    
 
     const interval = setInterval(() => {
         let sound = getMetromoneSound(getState());
         let currentBeat = getCurrentBeat(getState());
         let beatsPerBar = getBeatsPerBar(getState());
+        console.log({ currentBeat });
         playSound(sound);
         dispatch(calculateNextBeat(currentBeat, beatsPerBar));
     }, tickSpeed);
+
+
 
     dispatch(startMetronome(interval));
 }
@@ -53,9 +57,14 @@ export const setNewTempo = (tempo) => (dispatch, getState) => {
     }
 }
 
-const playSound = (name) => {
+export const playSound = (name) => {
     let sound = new Audio(soundCst[name]);
     sound.play();
+}
+
+export const clearCurrentInterval = (state) => {
+    let intervalID = getMetronomeIntervalID(state);
+    clearInterval(intervalID);
 }
 
 export const convertTempoToMilliseconds = (tempo) => (60 / tempo) * 1000;

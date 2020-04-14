@@ -19,7 +19,7 @@ const BeatIndicatorContainer = styled.div`
     &:focus {
         outline: none;
     }
-    border: ${props => props.emphasised ? '2px solid #5AD7FA' : 'none'};
+    border: ${props => props.emphasised ? '2px solid #5AD7FA' : '2px solid #ffffff00'};
 `;
 
 
