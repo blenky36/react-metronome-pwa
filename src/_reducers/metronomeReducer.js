@@ -1,6 +1,6 @@
 import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT, SET_TIME_SIGNATURE, SET_TEMPO, SET_SOUND, ADD_EMPHASISED_BEAT, REMOVE_EMPHASISED_BEAT } from '../_constants/actionTypes';
 
-const initialState = { playing: false, intervalID: null, timeSignature: [4, 4], currentBeat: 0, tempo: 120, sound: 'woodLow', emphasisedBeats: [1] };
+const initialState = { playing: false, intervalID: null, timeSignature: [4, 4], currentBeat: 1, tempo: 120, sound: 'woodLow', emphasisedBeats: [1] };
 
 export const metronomeReducer = (state = initialState, action) => {
     const { type, payload } = action;

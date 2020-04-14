@@ -1,9 +1,9 @@
-import  { soundCst } from '../_constants/sounds';
+import { soundCst } from '../_constants/sounds';
 import { setCurrentBeat, startMetronome, stopMetronome, setTempo, addEmphasisedBeat, removeEmphasisedBeat } from '../_actions/metronomeActions'
 import { getCurrentBeat, getBeatsPerBar, getMetronomeTempo, getMetronomeIntervalID, getMetronomePlaying, getMetromoneSound, getEmphasisedBeats } from '../_selectors/metronomeSelectors';
 
 export const calculateNextBeat = (currentBeat, beatsPerBar) => dispatch => {
-    if(currentBeat < beatsPerBar) {
+    if (currentBeat < beatsPerBar) {
         dispatch(setCurrentBeat(currentBeat + 1));
     } else {
         dispatch(setCurrentBeat(1));
@@ -12,7 +12,7 @@ export const calculateNextBeat = (currentBeat, beatsPerBar) => dispatch => {
 
 export const addRemoveEmphasisedBeat = (beatNo) => (dispatch, getState) => {
     const emphasisedBeats = getEmphasisedBeats(getState());
-    if(emphasisedBeats.includes(beatNo)) {
+    if (emphasisedBeats.includes(beatNo)) {
         dispatch(removeEmphasisedBeat(beatNo));
     } else {
         dispatch(addEmphasisedBeat(beatNo));
@@ -24,17 +24,11 @@ export const startMetronomePlaying = () => (dispatch, getState) => {
     let tickSpeed = convertTempoToMilliseconds(tempo);
     let intervalID = getMetronomeIntervalID(getState());
     clearInterval(intervalID);
-    
+
     const interval = setInterval(() => {
-        let sound = '';
+        let sound = getMetromoneSound(getState());
         let currentBeat = getCurrentBeat(getState());
         let beatsPerBar = getBeatsPerBar(getState());
-        let emphasisedBeats = getEmphasisedBeats(getState());
-        if(emphasisedBeats.includes(currentBeat)) {
-            sound = 'woodHigh';
-        } else {
-            sound = getMetromoneSound(getState());
-        }
         playSound(sound);
         dispatch(calculateNextBeat(currentBeat, beatsPerBar));
     }, tickSpeed);
@@ -50,18 +44,18 @@ export const stopMetronomePlaying = () => (dispatch, getState) => {
 
 export const setNewTempo = (tempo) => (dispatch, getState) => {
     const playing = getMetronomePlaying(getState());
-    if(playing) {
+    if (playing) {
         dispatch(stopMetronomePlaying());
         dispatch(setTempo(tempo));
         dispatch(startMetronomePlaying());
     } else {
         dispatch(setTempo(tempo));
     }
-}  
+}
 
 const playSound = (name) => {
     let sound = new Audio(soundCst[name]);
     sound.play();
-}   
+}
 
 export const convertTempoToMilliseconds = (tempo) => (60 / tempo) * 1000;
