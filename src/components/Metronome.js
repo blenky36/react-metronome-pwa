@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import BeatIndicatorList from './BeatIndicatorList';
 import { startMetronomePlaying, stopMetronomePlaying } from '../_thunks/metronomeThunks';
 import { connect } from 'react-redux';
@@ -12,10 +12,9 @@ import { getMetronomePlaying, getMetronomeTempo, getBeatsPerBar, getMetronomeInt
 
 export const renderButton = (playing, stopMetronome, startMetronome) => playing ? <ActionButton onClick={() => stopMetronome()}><FontAwesomeIcon icon={faStopCircle} /></ActionButton> : <ActionButton disabled={playing} onClick={() => startMetronome()} ><FontAwesomeIcon icon={faPlayCircle} /></ActionButton>
 
-const Metronome = ({ playing, stopMetronome, startMetronome, currentBeat }) => {
+const Metronome = ({ playing, stopMetronome, startMetronome }) => {
     return (
         <Fragment>
-            Current Beat: {currentBeat}
             <BeatIndicatorList />
             <TimeSignature />
             <Tempo />
@@ -31,7 +30,6 @@ const mapStateToProps = state => ({
     tempo: getMetronomeTempo(state),
     beatsPerBar: getBeatsPerBar(state),
     intervalID: getMetronomeIntervalID(state),
-    currentBeat: getCurrentBeat(state)
 });
 
 const mapDispatchToProps = dispatch => ({

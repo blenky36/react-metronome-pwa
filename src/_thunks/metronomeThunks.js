@@ -21,12 +21,11 @@ export const addRemoveEmphasisedBeat = (beatNo) => (dispatch, getState) => {
 
 export const startMetronomePlaying = () => (dispatch, getState) => {
     const tempo = getMetronomeTempo(getState());
-
     clearCurrentInterval(getState());
 
     playSound(getState(), 1);
     dispatch(setCurrentBeat(1));
-    
+
     const interval = setInterval(() => {
         let currentBeat = getCurrentBeat(getState());
         let beatsPerBar = getBeatsPerBar(getState());
@@ -59,6 +58,7 @@ export const setNewTempo = (tempo) => (dispatch, getState) => {
 
 export const playSoundFile = (name) => {
     let sound = new Audio(soundCst[name]);
+    sound.load();
     sound.play();
 }
 
@@ -68,7 +68,7 @@ export const clearCurrentInterval = (state) => {
 }
 
 export const playSound = (state, beat) => {
-    if(getEmphasisedBeats(state).includes(beat)) {
+    if (getEmphasisedBeats(state).includes(beat)) {
         playSoundFile('woodHigh');
     } else {
         playSoundFile(getMetromoneSound(state))

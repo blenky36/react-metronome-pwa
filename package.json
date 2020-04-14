@@ -17,7 +17,6 @@
         "react-scripts": "3.4.1",
         "redux": "^4.0.5",
         "redux-devtools-extension": "^2.13.8",
-        "redux-persist": "^6.0.0",
         "redux-thunk": "^2.3.0",
         "reselect": "^4.0.0",
         "styled-components": "^5.1.0"
@@ -39,8 +38,7 @@
         ],
         "development": [
             "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
+            "last 1 firefox version"
         ]
     },
     "devDependencies": {

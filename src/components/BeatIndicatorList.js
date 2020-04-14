@@ -24,11 +24,6 @@ const BeatIndicatorList = ({ beatsPerBar, currentBeat, emphasisedBeats }) => {
     )
 }
 
-BeatIndicatorList.propTypes = {
-    beatsPerBar: PropTypes.number.isRequired,
-    currentBeat: PropTypes.number.isRequired
-};
-
 const mapStateToProps = state => ({
     currentBeat: getCurrentBeat(state),
     beatsPerBar: getBeatsPerBar(state),
