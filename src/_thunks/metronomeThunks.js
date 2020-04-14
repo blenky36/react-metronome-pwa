@@ -1,12 +1,21 @@
 import  { soundCst } from '../_constants/sounds';
-import { setCurrentBeat, startMetronome, stopMetronome, setTempo } from '../_actions/metronomeActions'
-import { getCurrentBeat, getBeatsPerBar, getMetronomeTempo, getMetronomeIntervalID, getMetronomePlaying, getMetromoneSound } from '../_selectors/metronomeSelectors';
+import { setCurrentBeat, startMetronome, stopMetronome, setTempo, addEmphasisedBeat, removeEmphasisedBeat } from '../_actions/metronomeActions'
+import { getCurrentBeat, getBeatsPerBar, getMetronomeTempo, getMetronomeIntervalID, getMetronomePlaying, getMetromoneSound, getEmphasisedBeats } from '../_selectors/metronomeSelectors';
 
 export const calculateNextBeat = (currentBeat, beatsPerBar) => dispatch => {
     if(currentBeat < beatsPerBar) {
         dispatch(setCurrentBeat(currentBeat + 1));
     } else {
         dispatch(setCurrentBeat(1));
+    }
+}
+
+export const addRemoveEmphasisedBeat = (beatNo) => (dispatch, getState) => {
+    const emphasisedBeats = getEmphasisedBeats(getState());
+    if(emphasisedBeats.includes(beatNo)) {
+        dispatch(removeEmphasisedBeat(beatNo));
+    } else {
+        dispatch(addEmphasisedBeat(beatNo));
     }
 }
 
@@ -17,9 +26,15 @@ export const startMetronomePlaying = () => (dispatch, getState) => {
     clearInterval(intervalID);
     
     const interval = setInterval(() => {
-        let sound = getMetromoneSound(getState());
+        let sound = '';
         let currentBeat = getCurrentBeat(getState());
         let beatsPerBar = getBeatsPerBar(getState());
+        let emphasisedBeats = getEmphasisedBeats(getState());
+        if(emphasisedBeats.includes(currentBeat)) {
+            sound = 'woodHigh';
+        } else {
+            sound = getMetromoneSound(getState());
+        }
         playSound(sound);
         dispatch(calculateNextBeat(currentBeat, beatsPerBar));
     }, tickSpeed);

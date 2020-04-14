@@ -39,7 +39,7 @@ describe('The metronome reducer', () => {
 
     });
 
-    it('Sets the time signature correctly when passed SET_TIME_SIGNATURE', () => {
+    it('Sets the time signature correctly when passed the SET_TIME_SIGNATURE', () => {
         const fakeAction = getFakeAction('SET_TIME_SIGNATURE', [2, 8]);
         const originalState = { timeSignature: [4, 5] };
 
@@ -51,7 +51,7 @@ describe('The metronome reducer', () => {
 
     });
 
-    it('Sets the tempo correctly when passed SET_TEMPO action', () => {
+    it('Sets the tempo correctly when passed the SET_TEMPO action', () => {
         const fakeAction = getFakeAction('SET_TEMPO', 40);
         const originalState = { tempo: 50 };
 
@@ -63,11 +63,35 @@ describe('The metronome reducer', () => {
 
     });
 
-    it('Sets the sound correctly when passed SET_SOUND action', () => {
+    it('Sets the sound correctly when passed the SET_SOUND action', () => {
         const fakeAction = getFakeAction('SET_SOUND', 'drumstick');
         const originalState = { sound: 'wood' };
 
         const expected = { sound: 'drumstick' };
+
+        const actual = metronomeReducer(originalState, fakeAction);
+
+        expect(actual).toEqual(expected);
+
+    });
+
+    it('Adds the passed beat correctly to the emphasisedBeats array when passed the ADD_EMPHASISED_BEAT action', () => {
+        const fakeAction = getFakeAction('ADD_EMPHASISED_BEAT', 3);
+        const originalState = { emphasisedBeats: [1] };
+
+        const expected = { emphasisedBeats: [1, 3]};
+
+        const actual = metronomeReducer(originalState, fakeAction);
+
+        expect(actual).toEqual(expected);
+
+    });
+
+    it('Removes the passed beat correctly from the emphasisedBeats array when passed the REMOVE_EMPHASISED_BEAT action', () => {
+        const fakeAction = getFakeAction('REMOVE_EMPHASISED_BEAT', 3);
+        const originalState = { emphasisedBeats: [1, 3] };
+
+        const expected = { emphasisedBeats: [1]};
 
         const actual = metronomeReducer(originalState, fakeAction);
 

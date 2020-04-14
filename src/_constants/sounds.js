@@ -1,7 +1,9 @@
-import wood from '../assets/audio/wood.wav';
+import woodLow from '../assets/audio/wood-low.wav';
+import woodHigh from '../assets/audio/wood-high.wav';
 import drumstick from '../assets/audio/drumstick.wav'
 
 export const soundCst = {
-    wood,
+    woodLow,
+    woodHigh,
     drumstick
 } 

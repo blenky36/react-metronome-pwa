@@ -11,7 +11,7 @@ const SoundSelector = ({ sound, onSoundClicked }) => {
     return (
         <ItemListContainer>
             <ActionButton onClick={() => onSoundClicked('drumstick')} ><FontAwesomeIcon color={sound === 'drumstick' ? '#5AD7FA' : 'white'} icon={faDrum} ></FontAwesomeIcon></ActionButton>
-            <ActionButton onClick={() => onSoundClicked('wood')} ><FontAwesomeIcon color={sound === 'wood' ? '#5AD7FA' : 'white'} icon={faDrumSteelpan} ></FontAwesomeIcon></ActionButton>
+            <ActionButton onClick={() => onSoundClicked('woodLow')} ><FontAwesomeIcon color={sound === 'woodLow' ? '#5AD7FA' : 'white'} icon={faDrumSteelpan} ></FontAwesomeIcon></ActionButton>
         </ItemListContainer>
     );
 }

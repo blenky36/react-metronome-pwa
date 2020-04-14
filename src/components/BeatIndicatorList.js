@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import BeatIndicator from './BeatIndicator';
 import ItemListContainer from '../ui-components/ItemListContainer';
 import { connect } from 'react-redux';
-import { getCurrentBeat, getBeatsPerBar } from '../_selectors/metronomeSelectors';
+import { getCurrentBeat, getBeatsPerBar, getEmphasisedBeats } from '../_selectors/metronomeSelectors';
 
 
 
-export const createIndicatorList = (beatsPerBar, currentBeat) => {
+export const createIndicatorList = (beatsPerBar, currentBeat, emphasisedBeats) => {
     let indicatorList = [];
     for (let i = 1; i <= beatsPerBar; i++) {
-        indicatorList.push(<BeatIndicator key={i} beatNo={i} currentBeat={currentBeat} />)
+        indicatorList.push(<BeatIndicator emphasised={emphasisedBeats.includes(i)} key={i} beatNo={i} currentBeat={currentBeat} />)
     };
     return indicatorList;
 }
 
-const BeatIndicatorList = ({ beatsPerBar, currentBeat }) => {
+const BeatIndicatorList = ({ beatsPerBar, currentBeat, emphasisedBeats }) => {
 
     return (
         <ItemListContainer>
-            {createIndicatorList(beatsPerBar, currentBeat)}
+            {createIndicatorList(beatsPerBar, currentBeat, emphasisedBeats)}
         </ItemListContainer>
     )
 }
@@ -32,6 +32,7 @@ BeatIndicatorList.propTypes = {
 const mapStateToProps = state => ({
     currentBeat: getCurrentBeat(state),
     beatsPerBar: getBeatsPerBar(state),
+    emphasisedBeats: getEmphasisedBeats(state)
 });
 
 export default connect(mapStateToProps)(BeatIndicatorList);

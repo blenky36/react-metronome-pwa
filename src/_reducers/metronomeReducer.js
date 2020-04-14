@@ -1,6 +1,6 @@
-import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT, SET_TIME_SIGNATURE, SET_TEMPO, SET_SOUND } from '../_constants/actionTypes';
+import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT, SET_TIME_SIGNATURE, SET_TEMPO, SET_SOUND, ADD_EMPHASISED_BEAT, REMOVE_EMPHASISED_BEAT } from '../_constants/actionTypes';
 
-const initialState = { playing: false, intervalID: null, timeSignature: [4, 4], currentBeat: 0, tempo: 120, sound: 'wood' };
+const initialState = { playing: false, intervalID: null, timeSignature: [4, 4], currentBeat: 0, tempo: 120, sound: 'woodLow', emphasisedBeats: [1] };
 
 export const metronomeReducer = (state = initialState, action) => {
     const { type, payload } = action;
@@ -26,7 +26,7 @@ export const metronomeReducer = (state = initialState, action) => {
                 playing: false,
                 currentBeat: 0
             }
-        case SET_TIME_SIGNATURE: 
+        case SET_TIME_SIGNATURE:
             const ts = payload;
             return {
                 ...state,
@@ -43,6 +43,18 @@ export const metronomeReducer = (state = initialState, action) => {
             return {
                 ...state,
                 sound
+            }
+        case ADD_EMPHASISED_BEAT:
+            const beatNumberToAdd = payload;
+            return {
+                ...state,
+                emphasisedBeats: [...state.emphasisedBeats, beatNumberToAdd]
+            }
+        case REMOVE_EMPHASISED_BEAT:
+            const beatNumberToRemove = payload;
+            return {
+                ...state,
+                emphasisedBeats: state.emphasisedBeats.filter(x => x !== beatNumberToRemove)
             }
         default:
             return state;

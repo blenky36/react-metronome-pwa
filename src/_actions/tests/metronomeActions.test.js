@@ -1,5 +1,5 @@
-import { setCurrentBeat, stopMetronome, startMetronome, setTimeSignature, setTempo, setSound } from '../metronomeActions';
-import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT, SET_TIME_SIGNATURE, SET_TEMPO, SET_SOUND} from '../../_constants/actionTypes';
+import { setCurrentBeat, stopMetronome, startMetronome, setTimeSignature, setTempo, setSound, addEmphasisedBeat, removeEmphasisedBeat } from '../metronomeActions';
+import { START_METRONOME, STOP_METRONOME, SET_CURRENT_BEAT, SET_TIME_SIGNATURE, SET_TEMPO, SET_SOUND, ADD_EMPHASISED_BEAT, REMOVE_EMPHASISED_BEAT } from '../../_constants/actionTypes';
 
 
 describe('The metronome actions', () => {
@@ -75,6 +75,32 @@ describe('The metronome actions', () => {
             };
 
             const actual = setSound('wood');
+
+            expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('The addEmphasisedBeat action', () => {
+        it('Returns an object of type ADD_EMPHASISED_BEAT with payload of the correct beat', () => {
+            const expected = {
+                type: ADD_EMPHASISED_BEAT,
+                payload: 2
+            };
+
+            const actual = addEmphasisedBeat(2);
+
+            expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('The removeEmphasisedBeat action', () => {
+        it('Returns an object of type REMOVE_EMPHASISED_BEAT with payload of the correct beat', () => {
+            const expected = {
+                type: REMOVE_EMPHASISED_BEAT,
+                payload: 1
+            };
+
+            const actual = removeEmphasisedBeat(1);
 
             expect(actual).toEqual(expected);
         });

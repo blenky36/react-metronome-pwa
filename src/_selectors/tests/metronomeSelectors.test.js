@@ -7,10 +7,11 @@ import {
     getCurrentBeat,
     getMetronomeIntervalID,
     getMetronomeTempo,
-    getMetromoneSound
+    getMetromoneSound,
+    getEmphasisedBeats
 } from '../metronomeSelectors';
 
-const fakeState = { metronomeReducer: { playing: true,  intervalID: null, timeSignature: [3, 4], currentBeat: 2, tempo: 40, sound: 'wood'} }
+const fakeState = { metronomeReducer: { playing: true,  intervalID: null, timeSignature: [3, 4], currentBeat: 2, tempo: 40, sound: 'wood', emphasisedBeats: [4, 5]} }
 
 describe('The metronome selectors', () => {
     describe('The get beat type selector', () => {
@@ -117,6 +118,16 @@ describe('The metronome selectors', () => {
 
             const expected = 'wood';
             const actual = getMetromoneSound(fakeState);
+
+            expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('The get emphasised beats selector', () => {
+        it('Returns the emphasised beats', () => {
+
+            const expected = [4, 5];
+            const actual = getEmphasisedBeats(fakeState);
 
             expect(actual).toEqual(expected);
         });
